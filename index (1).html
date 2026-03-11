@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="theme-color" content="#C4A882">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="CPO nr. 10">
+  <title>CPO nummer 10</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --sand: #C4A882;
+      --sand-light: #E8DDD0;
+      --sand-pale: #F5F0EA;
+      --rose: #D4A090;
+      --rose-light: #EDD5CD;
+      --oak: #D4B896;
+      --ral9002: #E8E4DC;
+      --dark: #3D3530;
+      --mid: #7A6E68;
+      --white: #FDFAF7;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    html, body {
+      height: 100%;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--sand-pale);
+      color: var(--dark);
+      overscroll-behavior: none;
+    }
+
+    /* ── SPLASH / HEADER ── */
+    .hero {
+      background: var(--dark);
+      padding: 48px 24px 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 110% 110%, rgba(196,168,130,0.25) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at -10% 20%, rgba(212,160,144,0.15) 0%, transparent 50%);
+    }
+
+    .hero-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--sand);
+      opacity: 0.8;
+      margin-bottom: 8px;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.1;
+      position: relative;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--sand);
+    }
+
+    .hero-sub {
+      font-size: 13px;
+      color: var(--ral9002);
+      opacity: 0.6;
+      margin-top: 10px;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-ornament {
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 64px;
+      height: 64px;
+      border: 1px solid rgba(196,168,130,0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-ornament::after {
+      content: '10';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--sand);
+    }
+
+    /* ── NAV TABS ── */
+    .nav-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--sand-light);
+      box-shadow: 0 2px 12px rgba(61,53,48,0.06);
+    }
+
+    .nav-tabs {
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding: 0 8px;
+    }
+
+    .nav-tabs::-webkit-scrollbar { display: none; }
+
+    .nav-tab {
+      flex-shrink: 0;
+      padding: 14px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      color: var(--mid);
+      cursor: pointer;
+      border: none;
+      background: none;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .nav-tab .tab-icon { font-size: 16px; }
+
+    .nav-tab.active {
+      color: var(--dark);
+      border-bottom-color: var(--sand);
+    }
+
+    /* ── SECTIONS ── */
+    .sections-wrapper {
+      min-height: calc(100vh - 160px);
+    }
+
+    .section {
+      display: none;
+      padding: 24px 20px 40px;
+      animation: fadeUp 0.3s ease;
+    }
+
+    .section.active { display: block; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--dark);
+      line-height: 1.2;
+    }
+
+    .section-desc {
+      font-size: 13px;
+      color: var(--mid);
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    .divider {
+      width: 32px;
+      height: 1px;
+      background: var(--sand);
+      margin: 10px 0;
+    }
+
+    /* ── IMAGE CARDS ── */
+    .image-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .image-card {
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(61,53,48,0.07);
+    }
+
+    .image-card img {
+      width: 100%;
+      display: block;
+      max-height: 420px;
+      object-fit: contain;
+      background: var(--ral9002);
+    }
+
+    .image-card-body {
+      padding: 14px 16px;
+    }
+
+    .image-card-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    .image-card-sub {
+      font-size: 12px;
+      color: var(--mid);
+      margin-top: 2px;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(30,25,22,0.95);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 95vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      color: var(--white);
+      font-size: 28px;
+      cursor: pointer;
+      opacity: 0.8;
+      background: none;
+      border: none;
+    }
+
+    .lightbox-caption {
+      color: var(--ral9002);
+      font-size: 13px;
+      margin-top: 12px;
+      opacity: 0.7;
+    }
+
+    /* ── PLANNING ── */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 8px;
+      bottom: 8px;
+      width: 1px;
+      background: var(--sand-light);
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 16px;
+      padding: 0 0 24px 0;
+      position: relative;
+    }
+
+    .timeline-dot {
+      width: 39px;
+      height: 39px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: var(--white);
+      border: 2px solid var(--sand-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      position: relative;
+      z-index: 1;
+      transition: all 0.2s;
+    }
+
+    .timeline-item.done .timeline-dot {
+      background: var(--sand);
+      border-color: var(--sand);
+    }
+
+    .timeline-item.active .timeline-dot {
+      background: var(--rose);
+      border-color: var(--rose);
+      box-shadow: 0 0 0 4px var(--rose-light);
+    }
+
+    .timeline-content {
+      flex: 1;
+      padding-top: 8px;
+    }
+
+    .timeline-date {
+      font-size: 11px;
+      color: var(--sand);
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .timeline-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--dark);
+      margin-top: 2px;
+    }
+
+    .timeline-note {
+      font-size: 12px;
+      color: var(--mid);
+      margin-top: 3px;
+      line-height: 1.4;
+    }
+
+    .timeline-badge {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-done { background: var(--sand-light); color: var(--mid); }
+    .badge-active { background: var(--rose-light); color: var(--rose); }
+    .badge-todo { background: var(--ral9002); color: var(--mid); }
+
+    /* ── CONTACTEN ── */
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 12px rgba(61,53,48,0.06);
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .contact-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--sand-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .contact-name {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    .contact-role {
+      font-size: 12px;
+      color: var(--sand);
+      margin-top: 1px;
+      font-weight: 500;
+    }
+
+    .contact-detail {
+      font-size: 12px;
+      color: var(--mid);
+      margin-top: 4px;
+    }
+
+    .contact-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .btn-contact {
+      flex: 1;
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid var(--sand-light);
+      background: var(--sand-pale);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--dark);
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+    }
+
+    .btn-contact:active { background: var(--sand-light); }
+
+    /* ── BEGROTING ── */
+    .budget-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 12px rgba(61,53,48,0.06);
+      margin-bottom: 16px;
+    }
+
+    .budget-total {
+      text-align: center;
+      padding: 24px;
+      background: var(--dark);
+      border-radius: 12px;
+      margin-bottom: 16px;
+    }
+
+    .budget-total-label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--sand);
+      opacity: 0.8;
+    }
+
+    .budget-total-amount {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 300;
+      color: var(--white);
+      margin-top: 6px;
+    }
+
+    .budget-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--sand-pale);
+      font-size: 14px;
+    }
+
+    .budget-row:last-child { border-bottom: none; }
+    .budget-row-label { color: var(--mid); }
+    .budget-row-amount { font-weight: 500; color: var(--dark); }
+
+    .budget-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--sand-pale);
+      border: 1px dashed var(--sand);
+      border-radius: 10px;
+      padding: 16px;
+      text-decoration: none;
+      color: var(--dark);
+      font-size: 14px;
+      font-weight: 500;
+      margin-top: 8px;
+    }
+
+    .budget-link:active { background: var(--sand-light); }
+
+    /* ── DOCUMENTEN ── */
+    .doc-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .doc-item {
+      background: var(--white);
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 2px 10px rgba(61,53,48,0.05);
+      text-decoration: none;
+      color: var(--dark);
+    }
+
+    .doc-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: var(--sand-pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .doc-name { font-size: 14px; font-weight: 500; }
+    .doc-meta { font-size: 11px; color: var(--mid); margin-top: 2px; }
+    .doc-arrow { margin-left: auto; color: var(--sand); font-size: 18px; }
+
+    /* ── VOORTGANG UPLOAD ── */
+    .upload-zone {
+      border: 2px dashed var(--sand);
+      border-radius: 12px;
+      padding: 32px 20px;
+      text-align: center;
+      cursor: pointer;
+      background: var(--white);
+      transition: all 0.2s;
+      margin-bottom: 20px;
+    }
+
+    .upload-zone:active { background: var(--sand-pale); }
+    .upload-zone-icon { font-size: 32px; margin-bottom: 8px; }
+    .upload-zone-text { font-size: 14px; font-weight: 500; color: var(--dark); }
+    .upload-zone-sub { font-size: 12px; color: var(--mid); margin-top: 4px; }
+
+    #upload-input { display: none; }
+
+    .uploaded-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .uploaded-item {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      aspect-ratio: 1;
+      background: var(--ral9002);
+    }
+
+    .uploaded-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .uploaded-item-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(30,25,22,0.7));
+      padding: 20px 8px 6px;
+      font-size: 10px;
+      color: white;
+    }
+
+    .uploaded-delete {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 24px;
+      height: 24px;
+      background: rgba(30,25,22,0.6);
+      border-radius: 50%;
+      border: none;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 32px 20px;
+      color: var(--mid);
+      font-size: 13px;
+    }
+
+    .empty-state-icon { font-size: 36px; margin-bottom: 8px; }
+
+    /* ── MOODBOARD GRID ── */
+    .mood-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .mood-item {
+      border-radius: 10px;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      background: var(--ral9002);
+      cursor: pointer;
+    }
+
+    .mood-item.wide {
+      grid-column: span 2;
+      aspect-ratio: 16/9;
+    }
+
+    .mood-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .mood-item:active img { transform: scale(1.03); }
+
+    /* ── COLOR PALETTE ── */
+    .palette {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .palette-swatch {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .swatch {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.8);
+      box-shadow: 0 2px 8px rgba(61,53,48,0.15);
+    }
+
+    .swatch-label {
+      font-size: 9px;
+      color: var(--mid);
+      text-align: center;
+      max-width: 52px;
+      line-height: 1.2;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (min-width: 480px) {
+      .uploaded-grid { grid-template-columns: 1fr 1fr 1fr; }
+    }
+
+    /* ── LOAD ANIMATIONS ── */
+    .hero { animation: heroIn 0.5s ease; }
+
+    @keyframes heroIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .nav-tab { transition: color 0.15s, border-color 0.15s; }
+
+    /* Info chip */
+    .info-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--rose-light);
+      color: var(--rose);
+      font-size: 11px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label">Bouwproject · Heeze</div>
+    <h1 class="hero-title">CPO <em>nummer</em> 10</h1>
+    <p class="hero-sub">Bulders · Keeris Architecten · 2025</p>
+    <div class="hero-ornament"></div>
+  </div>
+
+  <!-- NAV -->
+  <div class="nav-wrapper">
+    <div class="nav-tabs" role="tablist">
+      <button class="nav-tab active" onclick="showSection('plattegronden')" role="tab">
+        <span class="tab-icon">📐</span> Plattegrond
+      </button>
+      <button class="nav-tab" onclick="showSection('moodboard')" role="tab">
+        <span class="tab-icon">🎨</span> Moodboard
+      </button>
+      <button class="nav-tab" onclick="showSection('voortgang')" role="tab">
+        <span class="tab-icon">📸</span> Voortgang
+      </button>
+      <button class="nav-tab" onclick="showSection('planning')" role="tab">
+        <span class="tab-icon">📅</span> Planning
+      </button>
+      <button class="nav-tab" onclick="showSection('documenten')" role="tab">
+        <span class="tab-icon">📄</span> Documenten
+      </button>
+      <button class="nav-tab" onclick="showSection('begroting')" role="tab">
+        <span class="tab-icon">💰</span> Begroting
+      </button>
+      <button class="nav-tab" onclick="showSection('contacten')" role="tab">
+        <span class="tab-icon">🏗️</span> Contacten
+      </button>
+    </div>
+  </div>
+
+  <div class="sections-wrapper">
+
+    <!-- ── PLATTEGRONDEN ── -->
+    <div id="section-plattegronden" class="section active">
+      <div class="section-header">
+        <h2 class="section-title">Plattegronden</h2>
+        <div class="divider"></div>
+        <p class="section-desc">Overzicht van de tekeningen en situatieschets van het perceel.</p>
+      </div>
+
+      <div class="image-grid">
+        <!-- VOEG HIER JE PLATTEGRONDEN TOE -->
+        <!-- Voorbeeld: zet je afbeelding in /images/plattegronden/ in je repo -->
+        <!--
+        <div class="image-card" onclick="openLightbox(this)">
+          <img src="images/plattegronden/plattegrond-bg.jpg" alt="Begane grond">
+          <div class="image-card-body">
+            <div class="image-card-title">Begane grond</div>
+            <div class="image-card-sub">Schaal 1:100</div>
+          </div>
+        </div>
+        -->
+
+        <div class="image-card">
+          <div style="padding: 40px 20px; text-align:center; background: var(--ral9002);">
+            <div style="font-size:36px; margin-bottom:8px;">📐</div>
+            <div style="font-size:13px; color:var(--mid);">Voeg hier je plattegrond toe</div>
+            <div style="font-size:11px; color:var(--sand); margin-top:6px;">Zie README voor instructies</div>
+          </div>
+          <div class="image-card-body">
+            <div class="image-card-title">Begane grond</div>
+            <div class="image-card-sub">Vervang door jouw afbeelding</div>
+          </div>
+        </div>
+
+        <div class="image-card">
+          <div style="padding: 40px 20px; text-align:center; background: var(--sand-light);">
+            <div style="font-size:36px; margin-bottom:8px;">📐</div>
+            <div style="font-size:13px; color:var(--mid);">Voeg hier je plattegrond toe</div>
+            <div style="font-size:11px; color:var(--sand); margin-top:6px;">Zie README voor instructies</div>
+          </div>
+          <div class="image-card-body">
+            <div class="image-card-title">Eerste verdieping</div>
+            <div class="image-card-sub">Vervang door jouw afbeelding</div>
+          </div>
+        </div>
+
+        <!-- 3D Tekening (al beschikbaar) -->
+        <div class="image-card" onclick="openLightbox(this)">
+          <img src="images/3D_tekening_6-10.png" alt="3D Tekening">
+          <div class="image-card-body">
+            <div class="image-card-title">3D Exterieur — nrs. 6–10</div>
+            <div class="image-card-sub">Hoekwoning nr. 10</div>
+          </div>
+        </div>
+
+        <div class="image-card" onclick="openLightbox(this)">
+          <img src="images/Steen_Neo_Barok.png" alt="Baksteen Neo Barok">
+          <div class="image-card-body">
+            <div class="image-card-title">Baksteen — Neo Barok</div>
+            <div class="image-card-sub">Gevelsteen keuze</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── MOODBOARD ── -->
+    <div id="section-moodboard" class="section">
+      <div class="section-header">
+        <h2 class="section-title">Moodboard</h2>
+        <div class="divider"></div>
+        <p class="section-desc">Inspiratie en sfeer voor het interieur. Klik op een foto voor volledig scherm.</p>
+      </div>
+
+      <!-- Kleurenpalet -->
+      <div class="budget-card">
+        <div style="font-size:12px; font-weight:500; color:var(--mid); letter-spacing:1px; text-transform:uppercase; margin-bottom:12px;">Kleurenpalet</div>
+        <div class="palette">
+          <div class="palette-swatch">
+            <div class="swatch" style="background:#C4A882;"></div>
+            <div class="swatch-label">Warm zand</div>
+          </div>
+          <div class="palette-swatch">
+            <div class="swatch" style="background:#D4A090;"></div>
+            <div class="swatch-label">Dusty rose</div>
+          </div>
+          <div class="palette-swatch">
+            <div class="swatch" style="background:#D4B896;"></div>
+            <div class="swatch-label">Licht eiken</div>
+          </div>
+          <div class="palette-swatch">
+            <div class="swatch" style="background:#E8E4DC;"></div>
+            <div class="swatch-label">RAL 9002</div>
+          </div>
+          <div class="palette-swatch">
+            <div class="swatch" style="background:#F5F0EA; border:1px solid #ddd;"></div>
+            <div class="swatch-label">Gebroken wit</div>
+          </div>
+          <div class="palette-swatch">
+            <div class="swatch" style="background:#3D3530;"></div>
+            <div class="swatch-label">Antraciet</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Keuken moodboard -->
+      <div style="margin-bottom:12px;">
+        <div style="font-size:12px; font-weight:500; color:var(--mid); letter-spacing:1px; text-transform:uppercase; margin-bottom:10px;">Keuken</div>
+        <div class="mood-grid">
+          <div class="mood-item wide" onclick="openLightbox(this)">
+            <img src="images/moodboard_keuken.png" alt="Moodboard keuken">
+          </div>
+          <!-- Voeg hier extra moodboard fotos toe -->
+          <!--
+          <div class="mood-item" onclick="openLightbox(this)">
+            <img src="images/moodboard/keuken-detail.jpg" alt="Keuken detail">
+          </div>
+          -->
+        </div>
+      </div>
+
+      <!-- Interieur 3D -->
+      <div>
+        <div style="font-size:12px; font-weight:500; color:var(--mid); letter-spacing:1px; text-transform:uppercase; margin-bottom:10px;">Interieur schets</div>
+        <div class="mood-grid">
+          <div class="mood-item wide" onclick="openLightbox(this)">
+            <img src="images/keuken_3d.png" alt="3D interieur keuken">
+          </div>
+        </div>
+      </div>
+
+      <div class="info-chip" style="margin-top:16px;">
+        💡 Klik op een foto voor volledig scherm
+      </div>
+    </div>
+
+    <!-- ── VOORTGANG ── -->
+    <div id="section-voortgang" class="section">
+      <div class="section-header">
+        <h2 class="section-title">Voortgang</h2>
+        <div class="divider"></div>
+        <p class="section-desc">Foto's van de bouw. Upload direct vanuit je telefoon.</p>
+      </div>
+
+      <div class="upload-zone" onclick="document.getElementById('upload-input').click()">
+        <div class="upload-zone-icon">📷</div>
+        <div class="upload-zone-text">Foto toevoegen</div>
+        <div class="upload-zone-sub">Tik om een foto te kiezen of te maken</div>
+      </div>
+      <input type="file" id="upload-input" accept="image/*" multiple onchange="handleUpload(event)">
+
+      <div id="uploaded-grid" class="uploaded-grid"></div>
+      <div id="empty-voortgang" class="empty-state">
+        <div class="empty-state-icon">🏗️</div>
+        <div>Nog geen voortgangsfoto's</div>
+        <div style="margin-top:4px; color:var(--sand);">Upload je eerste foto!</div>
+      </div>
+    </div>
+
+    <!-- ── PLANNING ── -->
+    <div id="section-planning" class="section">
+      <div class="section-header">
+        <h2 class="section-title">Planning</h2>
+        <div class="divider"></div>
+        <p class="section-desc">Mijlpalen en deadlines van het bouwproject.</p>
+      </div>
+
+      <div class="timeline">
+        <!-- Pas de planning aan naar jouw situatie -->
+        <div class="timeline-item done">
+          <div class="timeline-dot">✓</div>
+          <div class="timeline-content">
+            <div class="timeline-date">Sep 2024</div>
+            <div class="timeline-title">Inschrijving CPO</div>
+            <div class="timeline-note">Aanmelding voor kavel nr. 10 aan de Buldersweg, Heeze.</div>
+            <span class="timeline-badge badge-done">Afgerond</span>
+          </div>
+        </div>
+
+        <div class="timeline-item done">
+          <div class="timeline-dot">✓</div>
+          <div class="timeline-content">
+            <div class="timeline-date">Sep 2025</div>
+            <div class="timeline-title">Situatietekening</div>
+            <div class="timeline-note">Situatietekening SIT-01 opgeleverd door Keeris Architecten.</div>
+            <span class="timeline-badge badge-done">Afgerond</span>
+          </div>
+        </div>
+
+        <div class="timeline-item active">
+          <div class="timeline-dot">🏠</div>
+          <div class="timeline-content">
+            <div class="timeline-date">Nu</div>
+            <div class="timeline-title">Ontwerpfase</div>
+            <div class="timeline-note">Keuzes maken: indeling, materialen, keuken, badkamer etc.</div>
+            <span class="timeline-badge badge-active">Bezig</span>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">📋</div>
+          <div class="timeline-content">
+            <div class="timeline-date">2026</div>
+            <div class="timeline-title">Vergunningaanvraag</div>
+            <div class="timeline-note">Omgevingsvergunning aanvragen via gemeente Heeze-Leende.</div>
+            <span class="timeline-badge badge-todo">Gepland</span>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">🧱</div>
+          <div class="timeline-content">
+            <div class="timeline-date">2026</div>
+            <div class="timeline-title">Start bouw</div>
+            <div class="timeline-note">Eerste paal de grond in!</div>
+            <span class="timeline-badge badge-todo">Gepland</span>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">🔑</div>
+          <div class="timeline-content">
+            <div class="timeline-date">2027</div>
+            <div class="timeline-title">Oplevering</div>
+            <div class="timeline-note">Sleuteloverdracht en intrek.</div>
+            <span class="timeline-badge badge-todo">Gepland</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── DOCUMENTEN ── -->
+    <div id="section-documenten" class="section">
+      <div class="section-header">
+        <h2 class="section-title">Documenten</h2>
+        <div class="divider"></div>
+        <p class="section-desc">Afspraken, tekeningen en officiële stukken.</p>
+      </div>
+
+      <div class="doc-list">
+        <!-- Voeg jouw documenten toe. Zet ze in /docs/ in je GitHub repo -->
+        <a class="doc-item" href="docs/C24001_SIT-01_Situatie.pdf" target="_blank">
+          <div class="doc-icon">📄</div>
+          <div>
+            <div class="doc-name">Situatietekening SIT-01</div>
+            <div class="doc-meta">Keeris Architecten · Sep 2025</div>
+          </div>
+          <div class="doc-arrow">›</div>
+        </a>
+
+        <!-- Voorbeeld van hoe je meer documenten toevoegt: -->
+        <!--
+        <a class="doc-item" href="docs/afspraken-architect.pdf" target="_blank">
+          <div class="doc-icon">🤝</div>
+          <div>
+            <div class="doc-name">Afspraken architect</div>
+            <div class="doc-meta">Datum · Omschrijving</div>
+          </div>
+          <div class="doc-arrow">›</div>
+        </a>
+        -->
+
+        <div class="doc-item" style="opacity:0.4; cursor:default;">
+          <div class="doc-icon">📁</div>
+          <div>
+            <div class="doc-name">Meer documenten toevoegen</div>
+            <div class="doc-meta">Zie README — kopieer het voorbeeld hierboven</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── BEGROTING ── -->
+    <div id="section-begroting" class="section">
+      <div class="section-header">
+        <h2 class="section-title">Begroting</h2>
+        <div class="divider"></div>
+        <p class="section-desc">Overzicht van de kosten. Beheer je begroting in Excel.</p>
+      </div>
+
+      <!-- Pas de bedragen aan naar jouw situatie -->
+      <div class="budget-total">
+        <div class="budget-total-label">Totale begroting</div>
+        <div class="budget-total-amount">€ —.—</div>
+      </div>
+
+      <div class="budget-card">
+        <div style="font-size:12px; font-weight:500; color:var(--mid); letter-spacing:1px; text-transform:uppercase; margin-bottom:4px;">Categorieën</div>
+        <!-- Vul je eigen categorieën en bedragen in -->
+        <div class="budget-row">
+          <span class="budget-row-label">Grondkosten</span>
+          <span class="budget-row-amount">€ —</span>
+        </div>
+        <div class="budget-row">
+          <span class="budget-row-label">Bouwkosten</span>
+          <span class="budget-row-amount">€ —</span>
+        </div>
+        <div class="budget-row">
+          <span class="budget-row-label">Architect & advies</span>
+          <span class="budget-row-amount">€ —</span>
+        </div>
+        <div class="budget-row">
+          <span class="budget-row-label">Afwerking & inrichting</span>
+          <span class="budget-row-amount">€ —</span>
+        </div>
+        <div class="budget-row">
+          <span class="budget-row-label">Onvoorzien (10%)</span>
+          <span class="budget-row-amount">€ —</span>
+        </div>
+      </div>
+
+      <!-- Link naar Excel - pas aan naar jouw bestandsnaam -->
+      <a class="budget-link" href="docs/begroting.xlsx">
+        <span style="font-size:20px;">📊</span>
+        <div>
+          <div>Open volledige begroting</div>
+          <div style="font-size:11px; color:var(--mid); font-weight:400; margin-top:2px;">Excel bestand · docs/begroting.xlsx</div>
+        </div>
+        <span style="margin-left:auto; color:var(--sand);">›</span>
+      </a>
+    </div>
+
+    <!-- ── CONTACTEN ── -->
+    <div id="section-contacten" class="section">
+      <div class="section-header">
+        <h2 class="section-title">Aannemers & Contacten</h2>
+        <div class="divider"></div>
+        <p class="section-desc">Alle betrokkenen bij het bouwproject.</p>
+      </div>
+
+      <div class="contact-list">
+        <!-- Architect (al ingevuld op basis van je PDF) -->
+        <div class="contact-card">
+          <div class="contact-avatar">🏛️</div>
+          <div style="flex:1">
+            <div class="contact-name">Keeris Architecten</div>
+            <div class="contact-role">Architect</div>
+            <div class="contact-detail">Dijk 14, 5521 AX Eersel</div>
+            <div class="contact-actions">
+              <a class="btn-contact" href="tel:0497514480">📞 Bellen</a>
+              <a class="btn-contact" href="mailto:info@keerisarchitecten.nl">✉️ Mail</a>
+              <a class="btn-contact" href="https://www.keerisarchitecten.nl" target="_blank">🌐 Web</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Voeg hier je eigen contacten toe -->
+        <!--
+        <div class="contact-card">
+          <div class="contact-avatar">🔨</div>
+          <div style="flex:1">
+            <div class="contact-name">Aannemer Naam</div>
+            <div class="contact-role">Hoofdaannemer</div>
+            <div class="contact-detail">Telefoonnummer of adres</div>
+            <div class="contact-actions">
+              <a class="btn-contact" href="tel:0600000000">📞 Bellen</a>
+              <a class="btn-contact" href="mailto:info@aannemer.nl">✉️ Mail</a>
+            </div>
+          </div>
+        </div>
+        -->
+
+        <div class="contact-card" style="opacity:0.4;">
+          <div class="contact-avatar">➕</div>
+          <div>
+            <div class="contact-name">Contact toevoegen</div>
+            <div class="contact-role">Kopieer het voorbeeld in de HTML</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /sections-wrapper -->
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">×</button>
+    <img id="lightbox-img" src="" alt="">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+  </div>
+
+  <script>
+    // ── NAVIGATION ──
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('section-' + id).classList.add('active');
+      event.currentTarget.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ── LIGHTBOX ──
+    function openLightbox(card) {
+      const img = card.querySelector('img');
+      if (!img) return;
+      const caption = card.querySelector('.image-card-title, .mood-item-label');
+      document.getElementById('lightbox-img').src = img.src;
+      document.getElementById('lightbox-caption').textContent = img.alt || '';
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // ── VOORTGANG UPLOAD ──
+    const STORAGE_KEY = 'cpo10_voortgang_v1';
+
+    function loadVoortgang() {
+      const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      renderVoortgang(data);
+    }
+
+    function handleUpload(event) {
+      const files = Array.from(event.target.files);
+      const existing = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+
+      let loaded = 0;
+      files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          existing.push({
+            src: e.target.result,
+            name: file.name,
+            date: new Date().toLocaleDateString('nl-NL')
+          });
+          loaded++;
+          if (loaded === files.length) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
+            renderVoortgang(existing);
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+
+      event.target.value = '';
+    }
+
+    function deletePhoto(index) {
+      const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      data.splice(index, 1);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      renderVoortgang(data);
+    }
+
+    function renderVoortgang(data) {
+      const grid = document.getElementById('uploaded-grid');
+      const empty = document.getElementById('empty-voortgang');
+
+      if (data.length === 0) {
+        grid.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+
+      empty.style.display = 'none';
+      grid.innerHTML = data.map((item, i) => `
+        <div class="uploaded-item">
+          <img src="${item.src}" alt="${item.name}" onclick="openLightboxDirect('${item.src}', '${item.date}')">
+          <div class="uploaded-item-label">${item.date}</div>
+          <button class="uploaded-delete" onclick="deletePhoto(${i})">×</button>
+        </div>
+      `).join('');
+    }
+
+    function openLightboxDirect(src, caption) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox-caption').textContent = caption || '';
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // ── PWA SERVICE WORKER ──
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+
+    // ── INIT ──
+    loadVoortgang();
+  </script>
+
+</body>
+</html>
