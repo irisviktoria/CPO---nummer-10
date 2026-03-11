@@ -1122,21 +1122,101 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // ── LIGHTBOX ──
+    // ── LIGHTBOX MET ZOOM ──
+    let scale = 1, startDist = 0, startScale = 1;
+    let isDragging = false, startX = 0, startY = 0, translateX = 0, translateY = 0;
+    let lastTap = 0;
+
     function openLightbox(card) {
       const img = card.querySelector('img');
       if (!img) return;
-      const caption = card.querySelector('.image-card-title, .mood-item-label');
       document.getElementById('lightbox-img').src = img.src;
       document.getElementById('lightbox-caption').textContent = img.alt || '';
       document.getElementById('lightbox').classList.add('open');
       document.body.style.overflow = 'hidden';
+      resetZoom();
+    }
+
+    function openLightboxDirect(src, caption) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox-caption').textContent = caption || '';
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      resetZoom();
     }
 
     function closeLightbox() {
       document.getElementById('lightbox').classList.remove('open');
       document.body.style.overflow = '';
+      resetZoom();
     }
+
+    function resetZoom() {
+      scale = 1; translateX = 0; translateY = 0;
+      applyTransform();
+    }
+
+    function applyTransform() {
+      const img = document.getElementById('lightbox-img');
+      img.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+    }
+
+    // Sluit lightbox alleen als je op de achtergrond tikt (niet op de foto)
+    document.addEventListener('DOMContentLoaded', () => {
+      const lightbox = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-img');
+
+      // Sluit bij klik op achtergrond
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+      // ── PINCH ZOOM ──
+      img.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 2) {
+          startDist = Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY
+          );
+          startScale = scale;
+        } else if (e.touches.length === 1) {
+          // Dubbeltik detecteren
+          const now = Date.now();
+          if (now - lastTap < 300) {
+            if (scale > 1) { resetZoom(); }
+            else { scale = 2.5; applyTransform(); }
+          }
+          lastTap = now;
+
+          // Sleep starten
+          isDragging = true;
+          startX = e.touches[0].clientX - translateX;
+          startY = e.touches[0].clientY - translateY;
+        }
+      }, { passive: true });
+
+      img.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        if (e.touches.length === 2) {
+          const dist = Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY
+          );
+          scale = Math.min(Math.max(startScale * (dist / startDist), 1), 5);
+          applyTransform();
+        } else if (e.touches.length === 1 && isDragging && scale > 1) {
+          translateX = e.touches[0].clientX - startX;
+          translateY = e.touches[0].clientY - startY;
+          applyTransform();
+        }
+      }, { passive: false });
+
+      img.addEventListener('touchend', () => {
+        isDragging = false;
+        // Zorg dat je niet buiten beeld sleept
+        if (scale <= 1) resetZoom();
+      });
+    });
 
     // ── VOORTGANG UPLOAD ──
     const STORAGE_KEY = 'cpo10_voortgang_v1';
@@ -1149,7 +1229,6 @@
     function handleUpload(event) {
       const files = Array.from(event.target.files);
       const existing = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-
       let loaded = 0;
       files.forEach(file => {
         const reader = new FileReader();
@@ -1167,7 +1246,6 @@
         };
         reader.readAsDataURL(file);
       });
-
       event.target.value = '';
     }
 
@@ -1181,13 +1259,11 @@
     function renderVoortgang(data) {
       const grid = document.getElementById('uploaded-grid');
       const empty = document.getElementById('empty-voortgang');
-
       if (data.length === 0) {
         grid.innerHTML = '';
         empty.style.display = 'block';
         return;
       }
-
       empty.style.display = 'none';
       grid.innerHTML = data.map((item, i) => `
         <div class="uploaded-item">
@@ -1196,13 +1272,6 @@
           <button class="uploaded-delete" onclick="deletePhoto(${i})">×</button>
         </div>
       `).join('');
-    }
-
-    function openLightboxDirect(src, caption) {
-      document.getElementById('lightbox-img').src = src;
-      document.getElementById('lightbox-caption').textContent = caption || '';
-      document.getElementById('lightbox').classList.add('open');
-      document.body.style.overflow = 'hidden';
     }
 
     // ── PWA SERVICE WORKER ──
